@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { config, projectId } from "@/config";
+import { siweConfig } from "@/config/siwe";
 
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 
@@ -16,6 +17,7 @@ if (!projectId) throw new Error("Project ID is not defined");
 
 // Create modal
 createWeb3Modal({
+  siweConfig,
   wagmiConfig: config,
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
