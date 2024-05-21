@@ -12,7 +12,7 @@ import { createSIWEConfig, formatMessage } from "@web3modal/siwe";
 
 export const siweConfig = createSIWEConfig({
   createMessage: ({ address, ...args }: SIWECreateMessageArgs) =>
-    formatMessage(args, address),
+    formatMessage({ ...args, iat: new Date().toISOString() }, address),
   getMessageParams: async () => ({
     domain: window.location.host,
     uri: window.location.origin,
