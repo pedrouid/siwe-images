@@ -1,5 +1,3 @@
-import { SiweMessage } from "siwe";
-
 import { getCsrfToken, signIn, signOut, getSession } from "next-auth/react";
 
 import type {
