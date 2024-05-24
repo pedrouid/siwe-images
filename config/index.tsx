@@ -10,8 +10,8 @@ if (!projectId) throw new Error("Project ID is not defined");
 
 // Setup your project metadata with name, desc, url and icons
 const metadata = {
-  name: "SIWE Notes",
-  description: "Private Notes app powered by SIWE",
+  name: "SIWE Images",
+  description: "Private Image Upload powered by SIWE",
   url: "https://web3modal.com", // origin must match your domain & subdomain
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
