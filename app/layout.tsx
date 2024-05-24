@@ -6,6 +6,7 @@ import { cookieToInitialState } from "wagmi";
 
 import { config } from "@/config";
 import Web3ModalProvider from "@/context";
+import SessionProvider from "@/context/session";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Web3ModalProvider initialState={initialState}>
-          {children}
+          <SessionProvider>{children}</SessionProvider>
         </Web3ModalProvider>
       </body>
     </html>
