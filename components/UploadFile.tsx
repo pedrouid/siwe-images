@@ -1,12 +1,26 @@
 import React from "react";
+import { put } from "@vercel/blob";
+import { revalidatePath } from "next/cache";
 import UploadIcon from "./UploadIcon";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getCaip10Account } from "@/utils";
 
 export default function UploadFile() {
-  async function uploadImage() {
+  async function uploadImage(formData: FormData) {
     "use server";
-    return {};
+    const session = await getServerSession(authOptions);
+    if (!session) return null;
+    const { address, chainId } = session;
+    const imageFile = formData.get("image") as File;
+    const account = getCaip10Account(address, chainId);
+    const fileNameWithAccountPrefix = `${account}___${imageFile.name}`;
+    const blob = await put(fileNameWithAccountPrefix, imageFile, {
+      access: "public",
+    });
+    revalidatePath("/profile");
+    return blob;
   }
-
   return (
     <form className="flex flex-col mt-4 md:mt-6 gap-4" action={uploadImage}>
       <div className="flex flex-col mb-2 gap-1">

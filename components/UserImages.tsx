@@ -1,7 +1,21 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getCaip10Account } from "@/utils";
+import { list } from "@vercel/blob";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 
 export async function UserImages() {
-  const images: any = {};
+  async function allImages() {
+    const session = await getServerSession(authOptions);
+    if (!session) return null;
+    const { address, chainId } = session;
+    const account = getCaip10Account(address, chainId);
+    const blobs = await list({
+      prefix: account,
+    });
+    return blobs;
+  }
+  const images = await allImages();
 
   return (
     <section className="w-full">

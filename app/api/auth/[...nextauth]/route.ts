@@ -23,7 +23,7 @@ if (!projectId) {
   throw new Error("NEXT_PUBLIC_PROJECT_ID is not set");
 }
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
   secret: nextAuthSecret,
   providers: [
@@ -69,7 +69,7 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    session({ session, token }) {
+    async session({ session, token }) {
       if (!token.sub) {
         return session;
       }
